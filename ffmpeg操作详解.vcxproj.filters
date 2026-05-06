@@ -138,6 +138,9 @@
     <ClCompile Include="允许b帧存在导致写入文件的错误.cpp">
       <Filter>FFmpeg使用问题</Filter>
     </ClCompile>
+    <ClCompile Include="FFmpeg_录屏_录播_API问题.cpp">
+      <Filter>FFmpeg</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="3.11.2-使用filter-通过命令行.txt">
