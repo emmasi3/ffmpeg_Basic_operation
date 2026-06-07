@@ -1,9 +1,68 @@
-#include <iostream>
+ï»¿#include <iostream>
 extern "C"
 {
 #include <libavformat/avformat.h>
+#include <libavcodec/avcodec.h>
+#include <libavcodec/bsf.h>
 #include<libavutil/log.h>
 #include <libavutil/avutil.h>
+}
+
+// é™æ€å‡½æ•°ï¼šä¸ºè¾“å…¥æµä¸­éœ€è¦çš„ H.264 æµåˆ›å»ºå¹¶åˆå§‹åŒ– bitstream filterï¼ˆh264_mp4toannexbï¼‰
+// è¿”å›ä¸€ä¸ªé•¿åº¦ä¸º pFmtCtx->nb_streams çš„ AVBSFContext* æ•°ç»„ï¼ˆå¤±è´¥æ—¶è¿”å› nullptrï¼‰ã€‚
+// æ•°ç»„ä¸­å¯¹åº”æµæ²¡æœ‰è¿‡æ»¤å™¨æ—¶ä¸º nullptrã€‚è°ƒç”¨è€…è´Ÿè´£é€šè¿‡ av_bsf_free é‡Šæ”¾æ¯ä¸ªä¸Šä¸‹æ–‡å¹¶ av_free æ•°ç»„æœ¬èº«ã€‚
+static AVBSFContext** create_bsf_contexts(AVFormatContext* pFmtCtx)
+{
+	if (!pFmtCtx)
+		return nullptr;
+
+	int nb_streams = pFmtCtx->nb_streams;
+	AVBSFContext** bsf_ctxs = (AVBSFContext**)av_calloc(nb_streams, sizeof(AVBSFContext*));
+
+	if (!bsf_ctxs) 
+		return nullptr;
+
+	for (int i = 0; i < nb_streams; ++i)
+	{
+		AVStream* inStream = pFmtCtx->streams[i];
+		AVCodecParameters* par = inStream->codecpar;
+		// ä»…å¯¹è§†é¢‘ H.264 æµåˆ›å»ºè¿‡æ»¤å™¨ï¼ˆMP4 çš„ avcC -> AnnexBï¼‰
+		if (par && par->codec_type == AVMEDIA_TYPE_VIDEO && par->codec_id == AV_CODEC_ID_H264)
+		{
+			const AVBitStreamFilter* filter = av_bsf_get_by_name("h264_mp4toannexb");
+			if (!filter)
+			{
+				av_log(NULL, AV_LOG_WARNING, "h264_mp4toannexb filter not found\n");
+				continue; // ä¸é˜»æ­¢å…¶å®ƒæµ
+			}
+			AVBSFContext* bsf = nullptr;
+			if (av_bsf_alloc(filter, &bsf) < 0 || !bsf)
+			{
+				av_log(NULL, AV_LOG_ERROR, "av_bsf_alloc failed for stream %d\n", i);
+				continue;
+			}
+			// å¤åˆ¶è¾“å…¥æµçš„ codecpar åˆ° bsf çš„ par_in
+			if (avcodec_parameters_copy(bsf->par_in, par) < 0)
+			{
+				av_bsf_free(&bsf);
+				av_log(NULL, AV_LOG_ERROR, "avcodec_parameters_copy failed for bsf par_in\n");
+				continue;
+			}
+			bsf->time_base_in = inStream->time_base; // ä¿æŒ time_base
+			if (av_bsf_init(bsf) < 0)
+			{
+				av_bsf_free(&bsf);
+				av_log(NULL, AV_LOG_ERROR, "av_bsf_init failed for stream %d\n", i);
+				continue;
+			}
+			bsf_ctxs[i] = bsf;
+		}
+		else
+		{
+			bsf_ctxs[i] = nullptr;
+		}
+	}
+	return bsf_ctxs;
 }
 
 int main(int argc, char* argv[])
@@ -12,8 +71,8 @@ int main(int argc, char* argv[])
 
 	int ret = 0;
 
-	char* src = nullptr; // ÊäÈëÎÄ¼ş path
-	char* dst = nullptr; // Êä³öÎÄ¼ş
+	char* src = nullptr; // è¾“å…¥æ–‡ä»¶ path
+	char* dst = nullptr; // è¾“å‡ºæ–‡ä»¶
 
 	if (argc < 3)
 	{
@@ -26,26 +85,28 @@ int main(int argc, char* argv[])
 
 	char err_buf[AV_ERROR_MAX_STRING_SIZE] = { 0 };
 
-	//1.´¦ÀíÒ»Ğ©²ÎÊı
+	//1.å¤„ç†ä¸€äº›å‚æ•°
 	AVFormatContext* pFmtCtx = nullptr;
 	AVFormatContext* oFmtCtx = nullptr;
 	const AVOutputFormat* outFmt = nullptr;
 	AVPacket pkt;
 
+	AVBSFContext** bsf_ctxs = nullptr; // æŒ‰è¾“å…¥æµç´¢å¼•å­˜æ”¾å¯¹åº”çš„ bitstream filterï¼ˆå¦‚ h264_mp4toannexbï¼‰
+
 	int* stream_map = nullptr;
 	int stream_idx = 0;
 
 
-	//2.´ò¿ª¶àÃ½ÌåÎÄ¼ş£¨½«ÉÏÏÂÎÄ½á¹¹ÌåÓëÔ´ÎÄ¼ş¹ØÁªÆğÀ´£©
+	//2.æ‰“å¼€å¤šåª’ä½“æ–‡ä»¶ï¼ˆå°†ä¸Šä¸‹æ–‡ç»“æ„ä½“ä¸æºæ–‡ä»¶å…³è”èµ·æ¥ï¼‰
 	ret = avformat_open_input(&pFmtCtx, src, NULL, NULL);
 	if (ret < 0)
 	{
 		av_strerror(ret, err_buf, sizeof(err_buf));
-		av_log(pFmtCtx, AV_LOG_ERROR, "%s\n", err_buf);
+		av_log(NULL, AV_LOG_ERROR, "%s\n", err_buf);
 		goto _ERROR;
 	}
 
-	//4.´ò¿ªÄ¿µÄÎÄ¼şÉÏÏÂÎÄ£¬Õâ¸öº¯ÊıÖ±½Ó´úÌæÁËÔ­À´µÄÁ½²½
+	//4.æ‰“å¼€ç›®çš„æ–‡ä»¶ä¸Šä¸‹æ–‡ï¼Œè¿™ä¸ªå‡½æ•°ç›´æ¥ä»£æ›¿äº†åŸæ¥çš„ä¸¤æ­¥
 	avformat_alloc_output_context2(&oFmtCtx, NULL, NULL, dst);
 	if (!oFmtCtx)
 	{
@@ -60,36 +121,39 @@ int main(int argc, char* argv[])
 		goto _ERROR;
 	}
 
-	// ±éÀúÃ¿Ò»¸öÁ÷£¬Ö»Òª{ÊÓÆµ¡¢ÒôÆµ¡¢×ÖÄ»Á÷}£¬ÆäÓà¶¼²»Òª£¬Ò²¾ÍÊÇ¹ıÂË
+	// éå†æ¯ä¸€ä¸ªæµï¼Œåªè¦{è§†é¢‘ã€éŸ³é¢‘ã€å­—å¹•æµ}ï¼Œå…¶ä½™éƒ½ä¸è¦ï¼Œä¹Ÿå°±æ˜¯è¿‡æ»¤
 	for (int i = 0; i < pFmtCtx->nb_streams; i++)
 	{
 		AVStream* inStream = pFmtCtx->streams[i];	
-		AVCodecParameters* inCodecPar = inStream->codecpar; // ±à½âÂëÆ÷ĞÅÏ¢£¨²ÎÊı£©
+		AVCodecParameters* inCodecPar = inStream->codecpar; // ç¼–è§£ç å™¨ä¿¡æ¯ï¼ˆå‚æ•°ï¼‰
 		if ((inCodecPar->codec_type != AVMEDIA_TYPE_AUDIO) &&
 			(inCodecPar->codec_type != AVMEDIA_TYPE_VIDEO) &&
 			(inCodecPar->codec_type != AVMEDIA_TYPE_SUBTITLE)
 			)
-		{//Èç¹û²»ÊÇÕâÈıÂ·Á÷£¬ÄÇÃ´¾ÍÒª±ê¼Ç³öÀ´£¬Ä¿µÄ£º»»·â×°µÄÊ±ºò£¬²»ĞèÒªµÄ¾Í²»ÒªÁË
-			stream_map[i] = -1; // ÕâÊÇ²»ĞèÒªµÄ
+		{//å¦‚æœä¸æ˜¯è¿™ä¸‰è·¯æµï¼Œé‚£ä¹ˆå°±è¦æ ‡è®°å‡ºæ¥ï¼Œç›®çš„ï¼šæ¢å°è£…çš„æ—¶å€™ï¼Œä¸éœ€è¦çš„å°±ä¸è¦äº†
+			stream_map[i] = -1; // è¿™æ˜¯ä¸éœ€è¦çš„
 			continue;
 		}
-		//Èç¹ûÊÇĞèÒªµÄ
+		//å¦‚æœæ˜¯éœ€è¦çš„
 		stream_map[i] = stream_idx++;
 
-		//5.¸øÄ¿µÄÎÄ¼ş´´½¨£¨°ó¶¨£©Ò»¸öĞÂµÄÁ÷£¨ĞèÒªµÄÁ÷£©
+		//5.ç»™ç›®çš„æ–‡ä»¶åˆ›å»ºï¼ˆç»‘å®šï¼‰ä¸€ä¸ªæ–°çš„æµï¼ˆéœ€è¦çš„æµï¼‰
 		AVStream* outStream = avformat_new_stream(oFmtCtx, NULL);
 		if (!outStream)
 		{
 			av_log(oFmtCtx, AV_LOG_ERROR, "no memory to outStream!\n");
 			goto _ERROR;
 		}
-		//6.ÉèÖÃÊä³öÄ¿±êÁ÷²ÎÊı£¬ÕâÀïÖ±½ÓÊÇcopy
+		//6.è®¾ç½®è¾“å‡ºç›®æ ‡æµå‚æ•°ï¼Œè¿™é‡Œç›´æ¥æ˜¯copy
 		avcodec_parameters_copy(outStream->codecpar, inStream->codecpar);
-		outStream->codecpar->codec_tag = 0; // ¸ù¾İÊä³öµÄºó×ºÀ´×Ô¶¯È·¶¨·â×°Æ÷
-		
+		outStream->codecpar->codec_tag = 0; // æ ¹æ®è¾“å‡ºçš„åç¼€æ¥è‡ªåŠ¨ç¡®å®šå°è£…å™¨
+
 	}
 
-	//°ó¶¨ --> ±ãÓÚĞ´ÈëÊı¾İ¸øÄ¿µÄÎÄ¼ş
+	// ä¸ºéœ€è¦çš„è¾“å…¥æµåˆ›å»º bitstream filterï¼ˆåªåš H.264 çš„ mp4->annexb è½¬æ¢ï¼‰
+	//bsf_ctxs = create_bsf_contexts(pFmtCtx);
+
+	//ç»‘å®š --> ä¾¿äºå†™å…¥æ•°æ®ç»™ç›®çš„æ–‡ä»¶
 	ret = avio_open2(&oFmtCtx->pb, dst, AVIO_FLAG_WRITE, NULL, NULL);
 	if (ret < 0)
 	{
@@ -98,7 +162,7 @@ int main(int argc, char* argv[])
 		goto _ERROR;
 	}
 
-	//7.Ğ´¶àÃ½ÌåÎÄ¼şÍ·
+	//7.å†™å¤šåª’ä½“æ–‡ä»¶å¤´
 	ret = avformat_write_header(oFmtCtx, NULL);
 	if (ret < 0)
 	{
@@ -107,28 +171,94 @@ int main(int argc, char* argv[])
 		goto _ERROR;
 	}
 
-	//8.¶ÁÈ¡Ô­Êı¾İ£¨ÊÓÆµ¡¢ÒôÆµ¡¢×ÖÄ»£©µ½Ä¿µÄÎÄ¼ş
+	//8.è¯»å–åŸæ•°æ®ï¼ˆè§†é¢‘ã€éŸ³é¢‘ã€å­—å¹•ï¼‰åˆ°ç›®çš„æ–‡ä»¶
 	while (av_read_frame(pFmtCtx, &pkt) >= 0)
 	{
-		if (stream_map[pkt.stream_index] < 0) // ¼ì²éÊÇ·ñÎª -1 ±ê¼Ç
+		int in_index = pkt.stream_index;
+		if (stream_map[in_index] < 0) // æ£€æŸ¥æ˜¯å¦ä¸º -1 æ ‡è®°
 		{
 			av_packet_unref(&pkt);
 			continue;
 		}
-		AVStream* inStream = pFmtCtx->streams[pkt.stream_index];
-		
-		pkt.stream_index = stream_map[pkt.stream_index]; // ²»ÊÇ-1µÄ»°£¬¾Í¸ü¸ÄĞèÒª´«µİµÄpktµÄstream_index
-		
-		AVStream* outStream = oFmtCtx->streams[pkt.stream_index];
-		
-		av_packet_rescale_ts(&pkt, inStream->time_base, outStream->time_base);
-		
-		pkt.pos = -1; // 11¡¢ÓĞÁËÕâ¸öÉèÖÃ£¬ÊÇ²»ÊÇ¾Í²»ÓÃÉèÖÃÉÏÃæµÄ stream_index ÁË£¿´í
-		av_interleaved_write_frame(oFmtCtx, &pkt);
-		av_packet_unref(&pkt);
+
+		// å¦‚æœè¯¥è¾“å…¥æµæœ‰ bsfï¼Œé‚£ä¹ˆæŠŠåŒ…é€å…¥ bsfï¼Œå–å‡ºè¿‡æ»¤åçš„åŒ…å¹¶å†™å‡º
+		if (bsf_ctxs && bsf_ctxs[in_index])
+		{
+			AVBSFContext* bsf = bsf_ctxs[in_index];
+			// å‘é€åŒ…åˆ° bsf
+			ret = av_bsf_send_packet(bsf, &pkt);
+			if (ret < 0)
+			{
+				av_log(NULL, AV_LOG_ERROR, "av_bsf_send_packet failed: %d\n", ret);
+				av_packet_unref(&pkt);
+				continue;
+			}
+			// ä» bsf ä¸­å–å‡ºå¯èƒ½äº§ç”Ÿçš„å¤šä¸ªåŒ…
+			AVPacket filt_pkt;
+			//av_init_packet(&filt_pkt);
+			while (av_bsf_receive_packet(bsf, &filt_pkt) == 0)
+			{
+				// map åˆ°è¾“å‡ºæµç´¢å¼•
+				AVStream* inStream = pFmtCtx->streams[in_index];
+				int out_index = stream_map[in_index];
+				AVStream* outStream = oFmtCtx->streams[out_index];
+				// æ—¶é—´åŸºè½¬æ¢
+				av_packet_rescale_ts(&filt_pkt, inStream->time_base, outStream->time_base);
+				filt_pkt.stream_index = out_index;
+				filt_pkt.pos = -1;
+				av_interleaved_write_frame(oFmtCtx, &filt_pkt);
+				av_packet_unref(&filt_pkt);
+				//av_init_packet(&filt_pkt);
+			}
+			// åŸå§‹ pkt å¯ä»¥é‡Šæ”¾
+			av_packet_unref(&pkt);
+		}
+		else // æ²¡æœ‰ bsfï¼Œç›´æ¥å¤åˆ¶å¹¶å†™å‡º
+		{
+			AVStream* inStream = pFmtCtx->streams[in_index];
+			int out_index = stream_map[in_index];
+			AVStream* outStream = oFmtCtx->streams[out_index];
+
+			pkt.stream_index = out_index; // ä¸æ˜¯-1çš„è¯ï¼Œå°±æ›´æ”¹éœ€è¦ä¼ é€’çš„pktçš„stream_index
+			av_packet_rescale_ts(&pkt, inStream->time_base, outStream->time_base);
+			pkt.pos = -1; // ä¿æŒ-1ï¼Œè®© muxer å¤„ç†æ–‡ä»¶ä½ç½®
+			av_interleaved_write_frame(oFmtCtx, &pkt);
+			av_packet_unref(&pkt);
+		}
 	}
 
-	//9.Ğ´¶àÃ½ÌåÎÄ¼şÎ²
+	// åœ¨è¯»å®Œæ‰€æœ‰åŒ…åï¼Œå¯èƒ½éœ€è¦å¯¹æ‰€æœ‰ bsf åš flushï¼Œä»¥å–å‡ºæ®‹ç•™åŒ…
+	if (bsf_ctxs)
+	{
+		for (int i = 0; i < pFmtCtx->nb_streams; ++i)
+		{
+			AVBSFContext* bsf = bsf_ctxs[i];
+			if (!bsf) continue;
+			// å‘é€ NULL åˆ·æ–°
+			av_bsf_send_packet(bsf, NULL);
+			AVPacket filt_pkt;
+			//av_init_packet(&filt_pkt);
+			while (av_bsf_receive_packet(bsf, &filt_pkt) == 0)
+			{
+				int out_index = stream_map[i];
+				if (out_index < 0)
+				{
+					av_packet_unref(&filt_pkt);
+					continue;
+				}
+				AVStream* inStream = pFmtCtx->streams[i];
+				AVStream* outStream = oFmtCtx->streams[out_index];
+				av_packet_rescale_ts(&filt_pkt, inStream->time_base, outStream->time_base);
+				filt_pkt.stream_index = out_index;
+				filt_pkt.pos = -1;
+				av_interleaved_write_frame(oFmtCtx, &filt_pkt);
+				av_packet_unref(&filt_pkt);
+				//av_init_packet(&filt_pkt);
+			}
+		}
+	}
+
+	//9.å†™å¤šåª’ä½“æ–‡ä»¶å°¾
 	ret = av_write_trailer(oFmtCtx);
 	if (ret < 0)
 	{
@@ -139,22 +269,40 @@ int main(int argc, char* argv[])
 
 	av_log(NULL, AV_LOG_INFO, "success!!!\n");
 
-	//10.ÊÍ·Å×ÊÔ´
+	//10.é‡Šæ”¾èµ„æº
 _ERROR:
+	// é‡Šæ”¾ bsf ä¸Šä¸‹æ–‡
+	if (bsf_ctxs)
+	{
+		for (int i = 0; i < (pFmtCtx ? pFmtCtx->nb_streams : 0); ++i)
+		{
+			if (bsf_ctxs[i])
+			{
+				av_bsf_free(&bsf_ctxs[i]);
+			}
+		}
+		av_free(bsf_ctxs);
+		bsf_ctxs = nullptr;
+	}
+
+	// å…³é—­å¹¶é‡Šæ”¾è¾“å‡ºä¸Šä¸‹æ–‡
+	if (oFmtCtx)
+	{
+		if (oFmtCtx->pb)
+		{
+			avio_closep(&oFmtCtx->pb);
+		}
+		avformat_free_context(oFmtCtx);
+		oFmtCtx = nullptr;
+	}
+
+	// å…³é—­å¹¶é‡Šæ”¾è¾“å…¥ä¸Šä¸‹æ–‡
 	if (pFmtCtx)
 	{
 		avformat_close_input(&pFmtCtx);
 		pFmtCtx = nullptr;
 	}
-	if (oFmtCtx->pb)
-	{
-		avio_close(oFmtCtx->pb);
-	}
-	if (oFmtCtx)
-	{
-		avformat_close_input(&pFmtCtx);
-		pFmtCtx = nullptr;
-	}
+
 	if (stream_map)
 	{
 		av_free(stream_map);
@@ -164,7 +312,7 @@ _ERROR:
 	return 0;
 }
 /*
-* 11¡¢ÕâÀïµÄpkt.pos = -1£¬Ö»ÊÇÎªÁËÈÃffmpeg×Ô¶¯´¦Àí°üÓë°üÔÚÎÄ¼şÖĞµÄÎ»ÖÃ¹ØÏµ£¬ºÍpktÕâ¸ö°üÖĞ¸ºÔØµÄÊı¾İÁ÷µÄ stream_index Ã»ÓĞÒ»µã¹ØÏµ£¬stream_indexÊÇ±æÊ¶
-*   ¡¢ÕâÒ»Â·Êı¾İÁ÷µ½µ×ÊÇ ÊÓÆµ¡¢ÒôÆµ»¹ÊÇ×ÖÄ»¡¤¡¤¡¤µÄ
+* 11ã€è¿™é‡Œçš„pkt.pos = -1ï¼Œåªæ˜¯ä¸ºäº†è®©ffmpegè‡ªåŠ¨å¤„ç†åŒ…ä¸åŒ…åœ¨æ–‡ä»¶ä¸­çš„ä½ç½®å…³ç³»ï¼Œå’Œpktè¿™ä¸ªåŒ…ä¸­è´Ÿè½½çš„æ•°æ®æµçš„ stream_index æ²¡æœ‰ä¸€ç‚¹å…³ç³»ï¼Œstream_indexæ˜¯è¾¨è¯†
+*   ã€è¿™ä¸€è·¯æ•°æ®æµåˆ°åº•æ˜¯ è§†é¢‘ã€éŸ³é¢‘è¿˜æ˜¯å­—å¹•Â·Â·Â·çš„
 * 
 */

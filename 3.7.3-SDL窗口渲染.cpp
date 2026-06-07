@@ -28,7 +28,7 @@ int main() {
         goto _EXIT;
     }
 
-    //´´½¨äÖÈ¾Æ÷
+    //åˆ›å»ºæ¸²æŸ“å™¨
     render = SDL_CreateRenderer(window, -1, 0);
     if (!render)
     {
@@ -38,11 +38,11 @@ int main() {
 
     SDL_SetRenderDrawColor(render, 255, 0, 0, 255);
 
-    SDL_RenderClear(render);// ÇåÀíäÖÈ¾Æ÷µÄ²ĞÁôĞÅÏ¢£¨ÉÏÒ»´Î£©
+    SDL_RenderClear(render);// æ¸…ç†æ¸²æŸ“å™¨çš„æ®‹ç•™ä¿¡æ¯ï¼ˆä¸Šä¸€æ¬¡ï¼‰
 
     SDL_RenderPresent(render);
 
-    SDL_Delay(30000);
+    SDL_Delay(3000);
 
     SDL_DestroyWindow(window);
 
