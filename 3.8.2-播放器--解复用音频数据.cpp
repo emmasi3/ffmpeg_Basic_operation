@@ -20,7 +20,7 @@ static int w_width = 640;
 static int w_height = 480;
 
 class PacketQueue;
-//£¨½âÂë£©²ÎÊý¼¯ºÏ
+//ï¿½ï¿½ï¿½ï¿½ï¿½ë£©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 class _VideoState
 {
 public:
@@ -42,9 +42,9 @@ public:
 
 	struct SwrContext* swr_ctx;
 
-	uint8_t* audio_buf; // ÔÝÊ±´æ·ÅÒôÆµÊý¾Ý
-	unsigned int audio_buf_size;// ´æ·ÅµÄ´óÐ¡
-	int audio_buf_index;// ±»ÒôÆµÉè±¸¶ÁÈ¡µ½µÄÎ»ÖÃ£¨Ë÷Òý£©
+	uint8_t* audio_buf; // ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½
+	unsigned int audio_buf_size;// ï¿½ï¿½ÅµÄ´ï¿½Ð¡
+	int audio_buf_index;// ï¿½ï¿½ï¿½ï¿½Æµï¿½è±¸ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 	SDL_Texture* texture;
 
@@ -52,10 +52,10 @@ public:
 	AVPacket* pkt_a;
 	AVFrame* frame_a;
 
-	PacketQueue* audio_queue; // ²»ÄÜÖ±½Ó½«Õâ¸öÀà×÷ÎªÁíÒ»¸öÀàµÄ³ÉÔ±±äÁ¿£¬Ö»ÄÜÊÇÖ¸Õë£¬ÒòÎªÔÚ¼ì²âµ½PacketQueueÊ±£¬ÐèÒªÕÒµ½ËûµÄ¹¹Ôìº¯Êý£¨¶¨Òå£©µ«ÊÇÏÖÔÚ²¢Ã»ÓÐÕÒµ½£¬µ«ÊÇËüµÄÄÚ´æ¿Õ¼äÊÇ¿ÉÒÔ·ÖÅäµÄ£¬ËùÒÔ´«ÊäÖ¸ÕëÃ»ÎÊÌâ
+	PacketQueue* audio_queue; // ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½Îªï¿½Ú¼ï¿½âµ½PacketQueueÊ±ï¿½ï¿½ï¿½ï¿½Òªï¿½Òµï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£©ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú²ï¿½Ã»ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½Õ¼ï¿½ï¿½Ç¿ï¿½ï¿½Ô·ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½
 
 }decodepar;
-//¶ÓÁÐÀà¶¨Òå£¨PacketQueue£©
+//ï¿½ï¿½ï¿½ï¿½ï¿½à¶¨ï¿½å£¨PacketQueueï¿½ï¿½
 class PacketQueue
 {
 public:
@@ -68,10 +68,10 @@ public:
 	int64_t duration;
 	int size;
 
-	SDL_mutex* mutex; // »¥³âËø
-	SDL_cond* cond; // Ìõ¼þ±äÁ¿£¬ÓÐ»½ÐÑÒ»¸ö
+	SDL_mutex* mutex; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	SDL_cond* cond; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
 }p_queue;
-//ÖÐ¼äÉÌ£¨²»×¬²î¼Û¡¢´ú²½¹¤¾ß£©
+//ï¿½Ð¼ï¿½ï¿½Ì£ï¿½ï¿½ï¿½×¬ï¿½ï¿½Û¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß£ï¿½
 typedef struct MyPacketEle
 {
 	AVPacket* pkt;
@@ -84,11 +84,11 @@ static void render(_VideoState& par)
 		par.frame_v->data[1], par.frame_v->linesize[1],
 		par.frame_v->data[2], par.frame_v->linesize[2]
 	);
-	//ÓÃ¡°»æÍ¼ÑÕÉ«¡±ÇåÀíµ±Ç°äÖÈ¾Ä¿±ê£¬Ã»ÉèÖÃÄ¬ÈÏÎªºÚ´°¿Ú
+	//ï¿½Ã¡ï¿½ï¿½ï¿½Í¼ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½È¾Ä¿ï¿½ê£¬Ã»ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½Îªï¿½Ú´ï¿½ï¿½ï¿½
 	SDL_RenderClear(renderer);
-	//ËÍµ½GPU£¨¼ÆËã£©
+	//ï¿½Íµï¿½GPUï¿½ï¿½ï¿½ï¿½ï¿½ã£©
 	SDL_RenderCopy(renderer, par.texture, NULL, NULL);
-	//Ë¢ÐÂ´°¿Ú ---- ÏÔÊ¾Ò»Ö¡Í¼Ïñ
+	//Ë¢ï¿½Â´ï¿½ï¿½ï¿½ ---- ï¿½ï¿½Ê¾Ò»Ö¡Í¼ï¿½ï¿½
 	SDL_RenderPresent(renderer);
 }
 
@@ -97,7 +97,7 @@ static int decode(_VideoState& par)
 	int ret = -1;
 	char buf[1024];
 
-	//ËÍÈ¥½âÂë
+	//ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½
 	ret = avcodec_send_packet(par.ctx_v, par.pkt_v);
 	if (ret < 0)
 	{
@@ -114,15 +114,15 @@ static int decode(_VideoState& par)
 		}
 		else if (ret < 0)
 		{
-			return -1; // ÍË³ö
+			return -1; // ï¿½Ë³ï¿½
 		}
 
-		//äÖÈ¾
+		//ï¿½ï¿½È¾
 		render(par);
 	}
 
 }
-//¶ÓÁÐ³õÊ¼»¯
+//ï¿½ï¿½ï¿½Ð³ï¿½Ê¼ï¿½ï¿½
 static int packet_queue_init(PacketQueue* q)
 {
 	q->pkts = av_fifo_alloc2(1, sizeof(MyPacketEle), AV_FIFO_FLAG_AUTO_GROW);
@@ -145,7 +145,7 @@ static int packet_queue_init(PacketQueue* q)
 
 	return 0;
 }
-//·ÅÈë£¨¾ßÌå²Ù×÷£©
+//ï¿½ï¿½ï¿½ë£¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 static int packet_queue_put_priv(PacketQueue* q, AVPacket* pkt)
 {
 	MyPacketEle mypkt;
@@ -153,20 +153,20 @@ static int packet_queue_put_priv(PacketQueue* q, AVPacket* pkt)
 
 	mypkt.pkt = pkt;
 
-	ret = av_fifo_write(q->pkts, &mypkt.pkt, 1); // ÕâÀï´æ´¢µÄmypktµÄµØÖ·£¬ºÍmypktµÄµÚÒ»¸ö³ÉÔ±µÄµØÖ·Ò»ÖÂ
+	ret = av_fifo_write(q->pkts, &mypkt.pkt, 1); // ï¿½ï¿½ï¿½ï¿½æ´¢ï¿½ï¿½mypktï¿½Äµï¿½Ö·ï¿½ï¿½ï¿½ï¿½mypktï¿½Äµï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Äµï¿½Ö·Ò»ï¿½ï¿½
 	if (ret < 0)
 	{
 		return ret;
 	}
 	q->nb_packets++;
-	q->size += mypkt.pkt->size + sizeof(mypkt); // ÕâÀïÎªÊ²Ã´ÒªÓÐ Á½²¿·Ö£¿¡°Ö¸Õë+ÕæÊµÊý¾Ý¡±Ò»¸ö¶¼²»ÄÜÉÙ£¡£¡£¡
+	q->size += mypkt.pkt->size + sizeof(mypkt); // ï¿½ï¿½ï¿½ï¿½ÎªÊ²Ã´Òªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½+ï¿½ï¿½Êµï¿½ï¿½ï¿½Ý¡ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù£ï¿½ï¿½ï¿½ï¿½ï¿½
 	q->duration = mypkt.pkt->duration;
 
 	SDL_CondSignal(q->cond);
 
 	return 0;
 }
-//·ÅÈë£¨¶ÓÁÐ£©
+//ï¿½ï¿½ï¿½ë£¨ï¿½ï¿½ï¿½Ð£ï¿½
 static int packet_queue_put(PacketQueue* q, AVPacket* pkt)
 {
 	AVPacket* pkt1 = nullptr;
@@ -194,7 +194,7 @@ static int packet_queue_put(PacketQueue* q, AVPacket* pkt)
 
 	return ret;
 }
-//»ñÈ¡Êý¾Ý
+//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 static int packet_queue_get(PacketQueue* q,AVPacket* pkt,int block)
 {
 	MyPacketEle mypkt;
@@ -208,8 +208,8 @@ static int packet_queue_get(PacketQueue* q,AVPacket* pkt,int block)
 			q->nb_packets--;
 			q->size -= mypkt.pkt->size + sizeof(mypkt);
 			q->duration -= mypkt.pkt->duration;
-			av_packet_move_ref(pkt, mypkt.pkt); // ÕâÀï¾ÍÊÇÒÆ¶¯ÓïÒå£¬¸ßÐ§£¬ÇÔÈ¡Ö¸Õë
-			av_packet_free(&mypkt.pkt); // Õâ¸ö³ÌÐò×î¶àÈ¡Ò»¸öÊý¾Ý°ü£¬ËùÒÔÖ±½ÓÊÍ·ÅÕû¸ö°ü
+			av_packet_move_ref(pkt, mypkt.pkt); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½Ð§ï¿½ï¿½ï¿½ï¿½È¡Ö¸ï¿½ï¿½
+			av_packet_free(&mypkt.pkt); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Í·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			ret = 1;
 			break;
 		}
@@ -227,13 +227,13 @@ static int packet_queue_get(PacketQueue* q,AVPacket* pkt,int block)
 
 	return ret;
 }
-//Çå¿Õ¶ÓÁÐ
+//ï¿½ï¿½Õ¶ï¿½ï¿½ï¿½
 static void packet_queue_clear(PacketQueue* q)
 {
 	MyPacketEle mypkt;
 
 	SDL_LockMutex(q->mutex);
-	//ÕâÑùÒ»¸öÒ»¸öÈ¡³öÀ´ÔÙÏú»ÙµÄ²Ù×÷ÀË·ÑÊ±¼ä£¬³ý·ÇÄãÓÃÖÇÄÜÖ¸Õë£¬·ñÔòÒ²Ö»ÓÐÕâÑùÁË£¬µ±È»Ò²¿ÉÒÔÑ¡ÔñÏß³Ì£¬µ«ÊÇÏß³ÌÓÐ¸üÖØÒªµÄÊÂÇéÈ¥×ö£¬ÐÔ¼Û±È²»¸ß
+	//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ò»ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÙµÄ²ï¿½ï¿½ï¿½ï¿½Ë·ï¿½Ê±ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬ï¿½ï¿½ï¿½ï¿½Ò²Ö»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½È»Ò²ï¿½ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ß³Ì£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß³ï¿½ï¿½Ð¸ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼Û±È²ï¿½ï¿½ï¿½
 	while (av_fifo_read(q->pkts, &mypkt, 1) > 0)
 	{
 		av_packet_free(&mypkt.pkt);
@@ -245,7 +245,7 @@ static void packet_queue_clear(PacketQueue* q)
 
 	SDL_UnlockMutex(q->mutex);
 }
-//Ïú»Ù¶ÓÁÐ
+//ï¿½ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½
 static void packet_queue_destroy(PacketQueue* q)
 {
 	packet_queue_clear(q);
@@ -254,7 +254,7 @@ static void packet_queue_destroy(PacketQueue* q)
 	SDL_DestroyCond(q->cond);
 
 }
-//ÒôÆµ»Øµ÷£¨½âÂë£©º¯Êý
+//ï¿½ï¿½Æµï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë£©ï¿½ï¿½ï¿½ï¿½
 static int audio_decode_frame(_VideoState* is)
 {
 	if (SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_TIME_CRITICAL)) {
@@ -286,7 +286,7 @@ static int audio_decode_frame(_VideoState* is)
 		while (ret >= 0)
 		{
 			ret = avcodec_receive_frame(is->ctx_a, is->frame_a);
-			if (ret == AVERROR(EAGAIN)) // Ã»ÓÐ×ã¹»µÄÊý¾Ý½âÂë³öÒ»Ö¡£¬»òÕß»¹Ã»ÓÐ½âÂë³É¹¦£¬Á½ÖÖ¿ÉÄÜ£¡£¡£¡
+			if (ret == AVERROR(EAGAIN)) // Ã»ï¿½ï¿½ï¿½ã¹»ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½ï¿½Ò»Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½ß»ï¿½Ã»ï¿½Ð½ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ü£ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				break;
 			}
@@ -300,7 +300,7 @@ static int audio_decode_frame(_VideoState* is)
 				return -1;
 			}
 
-			//ÕâÀïÓÃÀ´¾ö¶¨ swr_ctx ÊÇ·ñ±»·ÖÅäÄÚ´æ£¨¿´²ÉÑù¸ñÊ½£©
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ swr_ctx ï¿½Ç·ñ±»·ï¿½ï¿½ï¿½ï¿½Ú´æ£¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½
 			if (!is->swr_ctx && (is->ctx_a->sample_fmt != AV_SAMPLE_FMT_S16))
 			{
 				AVChannelLayout in_ch_layout, out_ch_layout;
@@ -319,29 +319,29 @@ static int audio_decode_frame(_VideoState* is)
 				swr_init(is->swr_ctx);
 			}
 
-			//ÒôÆµ²ÉÑù¸ñÊ½²»Ò»ÖÂÊ±ÐèÒª¡°ÖØ²ÉÑù¡±
+			//ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½Ò»ï¿½ï¿½Ê±ï¿½ï¿½Òªï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½
 			if (is->swr_ctx)
 			{
 				int out_size = av_samples_get_buffer_size(NULL, is->frame_a->ch_layout.nb_channels, is->frame_a->nb_samples + 512, AV_SAMPLE_FMT_S16, 1);
-				av_fast_malloc(&is->audio_buf, &is->audio_buf_size, out_size); // ¸ßÐ§µÄ·ÖÅä¿Õ¼äµÄº¯Êý
+				av_fast_malloc(&is->audio_buf, &is->audio_buf_size, out_size); // ï¿½ï¿½Ð§ï¿½Ä·ï¿½ï¿½ï¿½Õ¼ï¿½Äºï¿½ï¿½ï¿½
 
 				len2 = swr_convert(is->swr_ctx, 
 					(uint8_t **) &is->audio_buf,
-					is->frame_a->nb_samples + 512, // ²ÉÑù¸öÊý×î¶àÎª1.5±¶
+					is->frame_a->nb_samples + 512, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª1.5ï¿½ï¿½
 					(const uint8_t**)is->frame_a->extended_data,
 					is->frame_a->nb_samples);
-				//¼ÆËãÖØ²ÉÑùºóµÄ´óÐ¡£¨Ò²ÊÇº¯Êý·µ»ØÖµ£©
+				//ï¿½ï¿½ï¿½ï¿½ï¿½Ø²ï¿½ï¿½ï¿½ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½Ò²ï¿½Çºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½
 				data_size = len2 * is->frame_a->ch_layout.nb_channels
 					* av_get_bytes_per_sample(AV_SAMPLE_FMT_S16);
 			}
-			else // Èç¹û²»ÐèÒªÖØ²ÉÑùµÄ»°£¬¾ÍÐèÒªµ¥¶À¸ø is->audio_buf Ìî³äÊý¾Ý
+			else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ø²ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ is->audio_buf ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			{
 				is->audio_buf = is->frame_a->data[0];
 				data_size = av_samples_get_buffer_size(NULL,
 					is->ctx_a->ch_layout.nb_channels,
 					is->frame_a->nb_samples,
 					AV_SAMPLE_FMT_S16,
-					1);// 1 ÊÇ²»¶ÔÆë
+					1);// 1 ï¿½Ç²ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 			if (pkt)
 			{
@@ -351,12 +351,12 @@ static int audio_decode_frame(_VideoState* is)
 			av_frame_unref(is->frame_a);
 
 			return data_size;
-		}//Ñ­»·2
+		}//Ñ­ï¿½ï¿½2
 
-	}//Ñ­»·1
+	}//Ñ­ï¿½ï¿½1
 
 }
-//ÒôÆµ»Øµ÷º¯Êý
+//ï¿½ï¿½Æµï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
 static void sdl_audio_callback(void* userdata, uint8_t* stream, int len)
 {
 
@@ -368,10 +368,10 @@ static void sdl_audio_callback(void* userdata, uint8_t* stream, int len)
 
 	while (len > 0)
 	{
-		//audio_bufÖÐÒÑ¾­Ã»ÓÐ¶«Î÷¿É¶ÁÁË
+		//audio_bufï¿½ï¿½ï¿½Ñ¾ï¿½Ã»ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½É¶ï¿½ï¿½ï¿½
 		if (is->audio_buf_index >= is->audio_buf_size)
 		{
-			//ÄÇÃ´ÔÙ´Î½âÂë£¨·µ»Ø½âÂëÊý£©
+			//ï¿½ï¿½Ã´ï¿½Ù´Î½ï¿½ï¿½ë£¨ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			audio_size = audio_decode_frame(is);
 			if (audio_size < 0)
 			{
@@ -380,12 +380,12 @@ static void sdl_audio_callback(void* userdata, uint8_t* stream, int len)
 			}
 			else
 			{
-				is->audio_buf_size = audio_size; // ÔÙ´ÎÉèÖÃÒôÆµÊý¾ÝµÄ´óÐ¡
+				is->audio_buf_size = audio_size; // ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ÝµÄ´ï¿½Ð¡
 			}
 
-			is->audio_buf_index = 0; // ÖØÖÃË÷ÒýÎª0
+			is->audio_buf_index = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª0
 		}
-		//Èç¹û»¹ÓÐÊý¾Ý£¬¼ÆËã£¨»¹ÓÐ¶àÉÙÃ»¶Á£¬²¢¸ø³öÄÜ¶ÁµÄ´óÐ¡£©
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ã£¨ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¶ï¿½ï¿½Ä´ï¿½Ð¡ï¿½ï¿½
 		len1 = is->audio_buf_size - is->audio_buf_index;
 		if (len1 > len)
 		{
@@ -396,7 +396,7 @@ static void sdl_audio_callback(void* userdata, uint8_t* stream, int len)
 		{
 			memcpy(stream, is->audio_buf + is->audio_buf_index, len1);
 		}
-		else // ¸ø¾²Òô
+		else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		{
 			memset(stream, 0, len1);
 		}
@@ -415,7 +415,7 @@ int main(int argc, char* argv[])
 
 	int ret = -1;
 	char* src = nullptr;
-	int idx_v = -1, idx_a = -1;//ÕÒµ½ÊÓÆµ¡¢ÒôÆµÁ÷µÄË÷Òý
+	int idx_v = -1, idx_a = -1;//ï¿½Òµï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	int idx_video, idx_audio;
 
 	AVFormatContext* fmtCtx = nullptr;
@@ -439,7 +439,7 @@ int main(int argc, char* argv[])
 
 	SDL_AudioSpec* spec = nullptr, *SPEC = nullptr;
 
-	//1.ÅÐ¶ÏÊäÈë²ÎÊý
+	//1.ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	if (argc < 2)
 	{
 		av_log(NULL, AV_LOG_ERROR, "the arguments is must more than 1\n");
@@ -448,7 +448,7 @@ int main(int argc, char* argv[])
 
 	src = argv[1];
 
-	//2.³õÊ¼»¯SDL£¬²¢´´½¨´°¿ÚºÍRender
+	//2.ï¿½ï¿½Ê¼ï¿½ï¿½SDLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½Render
 	ret = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	if (ret != 0)
 	{
@@ -475,7 +475,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//3.´ò¿ª¶àÃ½ÌåÎÄ¼þ£¬»ñÈ¡Á÷ÐÅÏ¢
+	//3.ï¿½ò¿ª¶ï¿½Ã½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ï¢
 	ret = avformat_open_input(&fmtCtx, src, NULL, NULL);
 	if (ret < 0)
 	{
@@ -484,7 +484,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	ret = avformat_find_stream_info(fmtCtx, NULL); // Õâ¸öº¯ÊýÄÜ¹»»ñÈ¡Á÷ÐÅÏ¢£¬´¢´æÔÚ fmtCtx->streams ÖÐ
+	ret = avformat_find_stream_info(fmtCtx, NULL); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ fmtCtx->streams ï¿½ï¿½
 	if (ret < 0)
 	{
 		av_strerror(ret, err_buf, sizeof(err_buf));
@@ -492,7 +492,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//4.²éÕÒ×îºÃµÄ£¨Ä¿±ê£©ÊÓÆµÁ÷¡¢ÒôÆµÁ÷£¬²»Ò»¶¨ÊÇ×îºÃµÄ
+	//4.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ£ï¿½Ä¿ï¿½ê£©ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½
 	for (int i = 0; i < fmtCtx->nb_streams; i++)
 	{
 		if (fmtCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO
@@ -508,7 +508,7 @@ int main(int argc, char* argv[])
 			idx_audio = i;
 		}
 
-		if (!idx_a && !idx_v) // Èç¹û¶¼ÕÒµ½ÁË£¬ÍË³ö
+		if (!idx_a && !idx_v) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½Ë£ï¿½ï¿½Ë³ï¿½
 		{
 			break;
 		}
@@ -529,7 +529,7 @@ int main(int argc, char* argv[])
 	instream_v = fmtCtx->streams[idx_video];
 	instream_a = fmtCtx->streams[idx_audio];
 
-	//5.¸ù¾Ýcodec_id£¬»ñµÃ½âÂëÆ÷
+	//5.ï¿½ï¿½ï¿½ï¿½codec_idï¿½ï¿½ï¿½ï¿½Ã½ï¿½ï¿½ï¿½ï¿½ï¿½
 	
 	codec_d_v = avcodec_find_decoder(instream_v->codecpar->codec_id);
 	if (!codec_d_v)
@@ -545,7 +545,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//6.´´½¨ÊÓÆµ½âÂëÆ÷ÉÏÏÂÎÄ
+	//6.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ctx_d_v = avcodec_alloc_context3(codec_d_v);
 	if (!ctx_d_v)
 	{
@@ -553,7 +553,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//7.´ÓÊÓÆµÁ÷ÖÐ¿½±´½âÂëÆ÷²ÎÊýµ½½âÂëÆ÷ÉÏÏÂÎÄÖÐ
+	//7.ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ret = avcodec_parameters_to_context(ctx_d_v, instream_v->codecpar);
 	if (ret < 0)
 	{
@@ -562,7 +562,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//8.½«½âÂëÆ÷ºÍÆäÉÏÏÂÎÄ°ó¶¨
+	//8.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½
 	ret = avcodec_open2(ctx_d_v, codec_d_v, NULL);
 	if (ret < 0)
 	{
@@ -572,7 +572,7 @@ int main(int argc, char* argv[])
 	}
 	///////////////////////////////////////
 
-	//666.´´½¨ÊÓÆµ½âÂëÆ÷ÉÏÏÂÎÄ
+	//666.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ctx_d_a = avcodec_alloc_context3(codec_d_a);
 	if (!ctx_d_a)
 	{
@@ -580,7 +580,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//777.´ÓÊÓÆµÁ÷ÖÐ¿½±´½âÂëÆ÷²ÎÊýµ½½âÂëÆ÷ÉÏÏÂÎÄÖÐ
+	//777.ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ð¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	ret = avcodec_parameters_to_context(ctx_d_a, instream_a->codecpar);
 	if (ret < 0)
 	{
@@ -589,7 +589,7 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 
-	//888.½«£¨ÒôÆµ£©½âÂëÆ÷ºÍÆäÉÏÏÂÎÄ°ó¶¨
+	//888.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½
 	ret = avcodec_open2(ctx_d_a, codec_d_a, NULL);
 	if (ret < 0)
 	{
@@ -600,15 +600,15 @@ int main(int argc, char* argv[])
 
 	///////////////////////////////////////
 
-	//9.¸ù¾Ý¡°ÊÓÆµ¡±µÄ¿í/¸ß´´½¨ÎÆÀí
+	//9.ï¿½ï¿½ï¿½Ý¡ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½Ä¿ï¿½/ï¿½ß´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	texture = SDL_CreateTexture(renderer,
-		SDL_PIXELFORMAT_IYUV, // ÏñËØ¸ñÊ½
-		SDL_TEXTUREACCESS_STREAMING,// ÎÆÀí·ÃÎÊÄ£Ê½--pattern
+		SDL_PIXELFORMAT_IYUV, // ï¿½ï¿½ï¿½Ø¸ï¿½Ê½
+		SDL_TEXTUREACCESS_STREAMING,// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£Ê½--pattern
 		ctx_d_v->width,
 		ctx_d_v->height
 	);
 
-	//10.´Ó¶àÃ½ÌåÎÄ¼þÖÐ¶ÁÈ¡Êý¾Ý£¬½øÐÐ½âÂë
+	//10.ï¿½Ó¶ï¿½Ã½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ð¶ï¿½È¡ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½ï¿½
 	pkt = av_packet_alloc();
 
 	pkt_v = av_packet_alloc();
@@ -617,11 +617,11 @@ int main(int argc, char* argv[])
 	pkt_a = av_packet_alloc();
 	frame_a = av_frame_alloc();
 
-	//11.¸øÀàµÄ³ÉÔ±³õÊ¼»¯
+	//11.ï¿½ï¿½ï¿½ï¿½Ä³ï¿½Ô±ï¿½ï¿½Ê¼ï¿½ï¿½
 	decodepar = _VideoState(ctx_d_v, pkt_v, frame_v, texture,
 		ctx_d_a, pkt_a, frame_a);
 
-	//³õÊ¼»¯£¨ÒôÆµ£©¶ÓÁÐ
+	//ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	decodepar.audio_queue = &p_queue;
 	packet_queue_init(decodepar.audio_queue);
 
@@ -633,30 +633,30 @@ int main(int argc, char* argv[])
 		goto _EXIT;
 	}
 	spec->freq = ctx_d_a->sample_rate;
-	spec->format = AUDIO_S16SYS; // 16Î»µÄÓÐ·ûºÅÕûÐÍ
+	spec->format = AUDIO_S16SYS; // 16Î»ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	spec->channels = ctx_d_a->ch_layout.nb_channels;
-	spec->samples = 1024; // ²ÉÑù´óÐ¡
+	spec->samples = 1024; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡
 	spec->callback = sdl_audio_callback;
 	spec->userdata = (void*)(&decodepar);
-	spec->silence = 0; //ÓÐ½éÉÜ
+	spec->silence = 0; //ï¿½Ð½ï¿½ï¿½ï¿½
 
-	//ÒôÆµÉè±¸³õÊ¼»¯
-	ret = SDL_OpenAudio(spec, SPEC); //Õâ¸öº¯ÊýÓÐ½²½â£º
+	//ï¿½ï¿½Æµï¿½è±¸ï¿½ï¿½Ê¼ï¿½ï¿½
+	ret = SDL_OpenAudio(spec, SPEC); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð½ï¿½ï¿½â£º
 	std::cout << ret << std::endl;
-	printf("¿´Õâ¶ù¿´Õâ¶ù£¡£¡£¡spec->freq:%d,%d,%d", SPEC->freq, SPEC->format, SPEC->channels);
+	printf("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½spec->freq:%d,%d,%d", SPEC->freq, SPEC->format, SPEC->channels);
 	if (ret < 0)
 	{
 		av_log(NULL, AV_LOG_ERROR, "Failed to open --- SDL_OpenAudio() function!\n");
 		goto _EXIT;
 	}
 
-	SDL_PauseAudio(0); // Á¢¼´¿ªÊ¼²¥·Å£¨´Ó¶ÓÁÐÖÐÈ¡Êý¾Ý£©
+	SDL_PauseAudio(0); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½Å£ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ý£ï¿½
 
 	while (av_read_frame(fmtCtx, pkt) >= 0)
 	{
 		if (pkt->stream_index == idx_video)
 		{
-			//12.¶Ô½âÂëºóµÄÊÓÆµÖ¡½øÐÐäÖÈ¾
+			//12.ï¿½Ô½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÖ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¾
 			decodepar.pkt_v = pkt;
 			ret = decode(decodepar);
 			if (ret < 0)
@@ -668,12 +668,12 @@ int main(int argc, char* argv[])
 		{
 			packet_queue_put(decodepar.audio_queue, pkt);
 		}
-		//13.´¦ÀíSDLÊÂ¼þ
+		//13.ï¿½ï¿½ï¿½ï¿½SDLï¿½Â¼ï¿½
 		SDL_PollEvent(&event);
 		switch (event.type)
 		{
 		case SDL_QUIT:
-			goto _QUIT; // Õý³£ÍË³ö
+			goto _QUIT; // ï¿½ï¿½ï¿½ï¿½ï¿½Ë³ï¿½
 			break;
 		default:
 			break;
@@ -684,11 +684,11 @@ int main(int argc, char* argv[])
 			av_packet_unref(pkt);
 		}
 	}
-	//ÏÔÊ¾×îºóÒ»Ö¡Êý¾Ý
+	//ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½Ò»Ö¡ï¿½ï¿½ï¿½ï¿½
 	decodepar.pkt_v = nullptr;
 	decode(decodepar);
 
-	//14.ÊÍ·ÅÏàÓ¦×ÊÔ´
+	//14.ï¿½Í·ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½Ô´
 _QUIT:
 	ret = 0;
 
@@ -756,24 +756,24 @@ _EXIT:
 	return 0;
 }
 /*
-* £¨1£©ÕâÀïµÄÀà³ÉÔ±±äÁ¿ÊÇÖ¸ÕëÊÇ°É£¬ÎªÊ²Ã´ÔÚÇ°Ãæ³õÊ¼»¯Íê³Éºó£¬Ò²¾ÍÊÇ¸Õ¸Õ½«pkt¡¢frame¡¢ctx³õÊ¼»¯Îªnullptr,È»ºóÓÃËûÃÇÀ´³õÊ¼»¯³ÉÔ±±äÁ¿£¬
-* ÄÇÃ´ºóÐø¶ÔÖ÷º¯ÊýÖÐµÄ¸÷¸ö±äÁ¿×ö³öµÄÐÞ¸ÄÊÇ·ñ»á¸üÐÂµ½ÀàµÄ³ÉÔ±±äÁ¿ÉÏÃæÈ¥£¿
-* ²»»á£¬ÒòÎªÍ¬Ò»¼¶Ö¸Õë¸³Öµ£¬ÆäÊµ´¢´æµÄÊÇ¶Ô·½Ö¸ÏòÇøÓòµÄµØÖ·£¬²¢ÇÒÕâ¸öµØÖ·²»ÄÜ±ä£¨±äÁËµÄ»°£¬²Ù×÷µÄ¾Í²»ÊÇÍ¬Ò»Æ¬ÄÚ´æµØÖ·ÁË£©£¬
-* µ«ÊÇÏÖÔÚµÄ¹Ø¼üÊÇ£ºËûÃÇÖ¸Ïò nullptr£¬ÊÇ¿ÕµÄ£¬Ò²¾ÍÊÇËµ£¬ºóÐøµÄ¸³ÖµÖÐ£¬²Ù×÷µÄ£¬¾ø¶Ô²»ÊÇÍ¬Ò»¿éÄÚ´æµØÖ·£¬Ò²¾Í²»»á¸üÐÂÁË£¬ËùÒÔ
-* £º³õÊ¼»¯µÄÊ±»úÓ¦¸ÃÊÇ£¬Ö÷º¯ÊýÖÐµÄ¸÷¸öÖ¸Õë£¬Ö¸ÏòÒ»¸öÈ·¶¨µØÖ·Ö®ºó£¬¸øµ½³ÉÔ±±äÁ¿²Å¿ÉÒÔ£¬¶®ÁËÂð£¿
-* ÊÇ·ñ»á¸üÐÂµÄ¹Ø¼üÊÇ£º£º£º²Ù×÷µÄÊÇ²»ÊÇÍ¬Ò»Æ¬ÄÚ´æµØÖ·£¿¶®£¿
+* ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½Ç°É£ï¿½ÎªÊ²Ã´ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Éºï¿½Ò²ï¿½ï¿½ï¿½Ç¸Õ¸Õ½ï¿½pktï¿½ï¿½frameï¿½ï¿½ctxï¿½ï¿½Ê¼ï¿½ï¿½Îªnullptr,È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½Ä³ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥ï¿½ï¿½
+* ï¿½ï¿½ï¿½á£¬ï¿½ï¿½ÎªÍ¬Ò»ï¿½ï¿½Ö¸ï¿½ë¸³Öµï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶Ô·ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½Ü±ä£¨ï¿½ï¿½ï¿½ËµÄ»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¾Í²ï¿½ï¿½ï¿½Í¬Ò»Æ¬ï¿½Ú´ï¿½ï¿½Ö·ï¿½Ë£ï¿½ï¿½ï¿½
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ¹Ø¼ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ nullptrï¿½ï¿½ï¿½Ç¿ÕµÄ£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½Öµï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½Í¬Ò»ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ö·ï¿½ï¿½Ò²ï¿½Í²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½
+* ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¸ï¿½ï¿½ï¿½Ö¸ï¿½ë£¬Ö¸ï¿½ï¿½Ò»ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½Ö·Ö®ï¿½ó£¬¸ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½Å¿ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ÂµÄ¹Ø¼ï¿½ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç²ï¿½ï¿½ï¿½Í¬Ò»Æ¬ï¿½Ú´ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * 
-* £¨2£©silence Õâ¸ö³ÉÔ±±äÁ¿£¬ÒâË¼ÊÇ£¬µ±ÒôÆµ»º³åÇøÃ»ÓÐÊý¾ÝÊ±£¬»á×Ô¶¯Ìî³ä¸Ã±äÁ¿µÄÖµ£¬´ó¶àÊýÊ±ºòÐèÒªµÄÊÇ¡°¾²Òô¡±
-* ²¢ÇÒ£¬Õâ¸öÖµºÃÏñ¿ÉÒÔ×Ô¶¯ÍÆµ¼£¬²»ÐèÒªÊÖ¶¯ÉèÖÃ£¬µ«ÊÇ¶ÔÓÚ 16Î»Éî»òÒÔÉÏµÄÊý¾Ý£¬0¾ÍÊÇ¾²Òô£¬ËùÒÔÓÐÊ±ºòÊÖ¶¯ÉèÖÃ±È½ÏºÏÀí
+* ï¿½ï¿½2ï¿½ï¿½silence ï¿½ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¼ï¿½Ç£ï¿½ï¿½ï¿½ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½Ã±ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* ï¿½ï¿½ï¿½Ò£ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½Æµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½ï¿½ï¿½ 16Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ï¿½Ý£ï¿½0ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½Ã±È½Ïºï¿½ï¿½ï¿½
 * 
-* £¨3£©SDL_OpenAudio()µÄµÚ¶þ¸ö²ÎÊý£¬»á·µ»ØÊµ¼ÊµÄÉèÖÃ²ÎÊý£¬Ò²¾ÍÊÇËµ£¬ÔÛÃÇ´«½øÈ¥µÄ specµÄ¸÷¸ö²ÎÊý£¬¿ÉÄÜ»áºÍÊµ¼ÊÒôÆµÉè±¸µÄÒªÇó²»Ò»ÖÂ£¬ÄÇÃ´º¯Êý¾Í»á×Ô¶¯ÐÞ¸Ä
-* specÖÐµÄ×Ö¶ÎÀ´±£Ö¤ÒôÆµÉè±¸µÄÕýÈ·ÔËÐÐ£¬²¢ÇÒ»á½«ÐÞ¸ÄºóµÄ¡¢ÄÜ¹»Ê¹µÃÉè±¸Õý³£´ò¿ªµÄ×Ö¶ÎÐÅÏ¢£¬È«²¿ÉèÖÃ½ø µÚ¶þ¸ö²ÎÊýÖÐ£¬Ò²¾ÍÊÇ»ñÈ¡ÁËÊµ¼Ê²ÎÊý
-* µ±È»£¬Èç¹ûÄã²»¹ØÐÄ ±»ÐÞ¸ÄÖ®ºóµÄ²ÎÊýÏêÏ¸ÐÅÏ¢ÊÇÊ²Ã´£¬¾ÍÖ±½Ó NULL ¾ÍºÃÁË
+* ï¿½ï¿½3ï¿½ï¿½SDL_OpenAudio()ï¿½ÄµÚ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á·µï¿½ï¿½Êµï¿½Êµï¿½ï¿½ï¿½ï¿½Ã²ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½È¥ï¿½ï¿½ specï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü»ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½Æµï¿½è±¸ï¿½ï¿½Òªï¿½ï¿½Ò»ï¿½Â£ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½Ô¶ï¿½ï¿½Þ¸ï¿½
+* specï¿½Ðµï¿½ï¿½Ö¶ï¿½ï¿½ï¿½ï¿½ï¿½Ö¤ï¿½ï¿½Æµï¿½è±¸ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½Ò»á½«ï¿½Þ¸Äºï¿½Ä¡ï¿½ï¿½Ü¹ï¿½Ê¹ï¿½ï¿½ï¿½è±¸ï¿½ï¿½ï¿½ï¿½ï¿½ò¿ªµï¿½ï¿½Ö¶ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½Ã½ï¿½ ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½Ò²ï¿½ï¿½ï¿½Ç»ï¿½È¡ï¿½ï¿½Êµï¿½Ê²ï¿½ï¿½ï¿½
+* ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã²»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Þ¸ï¿½Ö®ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢ï¿½ï¿½Ê²Ã´ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ NULL ï¿½Íºï¿½ï¿½ï¿½
 * 
-* £¨4£©AVERROR(EAGAIN) ½ÓÊÜ½âÂëÊý¾ÝÊ±£¬·µ»ØÕâÑùµÄ×Ö¶Î£¬ÓÐÁ½ÖÖ¿ÉÄÜ£º1¡¢Í¨¹ýsendËÍÍù½âÂëÆ÷µÄÊý¾Ý²»¹»½âÂëÎª¡°Ò»Ö¡¡±
-*															   2¡¢»¹Ã»ÓÐ½âÂëÍê³É
-* Ò»°ãÀ´Ëµ£¬½âÂëÒôÆµÊ±¼äÔÚ 0.1 --- 3msÖ®¼ä£¬ËùÒÔµ÷ÊÔµÄÊ±ºò£¬¸ù±¾¾Í²»ÐèÒªµ£ÐÄ½âÂë²»Íê£¬Ò»µ©ÓÃ»§ÄÜ¹»²ì¾õµ½½âÂëÂýÁË£¬ÄÇÒ»¶¨ÊÇ³öÎÊÌâÁË
+* ï¿½ï¿½4ï¿½ï¿½AVERROR(EAGAIN) ï¿½ï¿½ï¿½Ü½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¶Î£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¿ï¿½ï¿½Ü£ï¿½1ï¿½ï¿½Í¨ï¿½ï¿½sendï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½Ò»Ö¡ï¿½ï¿½
+*															   2ï¿½ï¿½ï¿½ï¿½Ã»ï¿½Ð½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* Ò»ï¿½ï¿½ï¿½ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆµÊ±ï¿½ï¿½ï¿½ï¿½ 0.1 --- 3msÖ®ï¿½ä£¬ï¿½ï¿½ï¿½Ôµï¿½ï¿½Ôµï¿½Ê±ï¿½ò£¬¸ï¿½ï¿½ï¿½ï¿½Í²ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½Ä½ï¿½ï¿½ë²»ï¿½ê£¬Ò»ï¿½ï¿½ï¿½Ã»ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 * 
-* £¨5£©
+* ï¿½ï¿½5ï¿½ï¿½
 * 
 */
