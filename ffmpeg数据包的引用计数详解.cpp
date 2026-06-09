@@ -175,6 +175,14 @@ static void test_copy_AVPacket()
         // 释放 AVPacket 本身的堆内存
         av_packet_free(&pkt2);
     }
+    std::cout << "---------------------\n";
+
+    /*
+    * （4）avcodec_send_packet() / avcodec_receive_frame() 对于 AVPacket / AVFrame 的引用计数如何？
+    *   根据之前编程的经验：每一次调用这俩 API 后，都要进行 av_packet_unref()，再结合这俩方法的官方注释：
+    *   may 可以创建新的引用对于数据包(前提是要开始引用计数)，他没有保证，用的是这个单词，···
+    *   结合来看，大部分情况下，都会创建新的引用，也就是引用计数 + 1，所以记得调用 av_packet_unref
+    */
 
 
     // 释放引用计数
