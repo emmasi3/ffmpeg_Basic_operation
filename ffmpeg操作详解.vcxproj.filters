@@ -147,6 +147,9 @@
     <ClCompile Include="ffmpeg数据包的引用计数详解.cpp">
       <Filter>FFmpeg使用问题</Filter>
     </ClCompile>
+    <ClCompile Include="ffmpeg_av_read_frame&amp;&amp;引用计数.cpp">
+      <Filter>FFmpeg使用问题</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="3.11.2-使用filter-通过命令行.txt">
