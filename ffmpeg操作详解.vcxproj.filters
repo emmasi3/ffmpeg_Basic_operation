@@ -25,6 +25,12 @@
     <Filter Include="FFmpeg使用问题">
       <UniqueIdentifier>{62e57b85-4096-4bc3-86b2-b00beef5aa95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="音视频基础">
+      <UniqueIdentifier>{6db668a4-d9b7-47ed-accf-4f4fffd26c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="音视频基础\H264">
+      <UniqueIdentifier>{593c58fd-9d9a-427c-802e-8a88112a603d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3.5.2-ffmpeg日志系统.cpp">
@@ -171,5 +177,10 @@
     <FxCompile Include="BGRAtoNV12.hlsl">
       <Filter>DXGI</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="音视频基础\H264\H264_SPS_PPS理解.md">
+      <Filter>音视频基础\H264</Filter>
+    </None>
   </ItemGroup>
 </Project>
