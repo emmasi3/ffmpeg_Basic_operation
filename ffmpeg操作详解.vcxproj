@@ -280,6 +280,7 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="FFmpeg_具体功能讲解\ffmpeg_seek讲解.md" />
     <None Include="音视频基础\H264\H264_SPS_PPS理解.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

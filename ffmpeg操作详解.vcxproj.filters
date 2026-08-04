@@ -31,6 +31,12 @@
     <Filter Include="音视频基础\H264">
       <UniqueIdentifier>{593c58fd-9d9a-427c-802e-8a88112a603d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="FFmpeg模块讲解">
+      <UniqueIdentifier>{8ac7289d-832d-46b2-a6cd-27ade7146088}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="FFmpeg_具体功能讲解">
+      <UniqueIdentifier>{35d7b8b4-423d-456b-801e-62d30b1afdbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3.5.2-ffmpeg日志系统.cpp">
@@ -181,6 +187,9 @@
   <ItemGroup>
     <None Include="音视频基础\H264\H264_SPS_PPS理解.md">
       <Filter>音视频基础\H264</Filter>
+    </None>
+    <None Include="FFmpeg_具体功能讲解\ffmpeg_seek讲解.md">
+      <Filter>FFmpeg_具体功能讲解</Filter>
     </None>
   </ItemGroup>
 </Project>
